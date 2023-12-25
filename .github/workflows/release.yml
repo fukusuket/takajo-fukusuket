@@ -9,21 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Nim
-        id: install-nim
-        run: |
-          curl https://nim-lang.org/choosenim/init.sh -sSf > install.sh
-          chmod +x install.sh
-          ./install.sh -y
-          export PATH="~/nimble/bin:$PATH"
-          echo $PATH
-
-      - name: Compile Takajo
-        id: compile-takajo
-        run: |
-          nimble update
-          nimble build -d:release --threads:on
-
+      - uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: '2.x' # default is 'stable'
+      - name: Build check
+        run: nimble build --threads:on -Y
       # A release created by shogo82148/actions-create-release is alway draft here.
       # So users may not see an empty release.
 
