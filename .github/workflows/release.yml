@@ -11,7 +11,7 @@ jobs:
 
       - name: Install Nim
         id: install-nim
-        run: |
+        run:
         curl https://nim-lang.org/choosenim/init.sh > install.sh
         ./install.sh
         export PATH="~/nimble/bin:$PATH"
