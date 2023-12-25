@@ -9,12 +9,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # steps for building assets
-      - run: echo "REPLACE ME!" > assets.txt
+      - name: Install Nim
+        id: install-nim
+        run: |
+        curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+        export PATH="~/nimble/bin:$PATH"
+        echo $PATH
 
-      - name: Create a Release
-        id: create_release
-        uses: shogo82148/actions-create-release@v1
+      - name: Compile Takajo
+        id: compile-takajo
+        run: |
+        nimble update
+        nimble build -d:release --threads:on
 
       # A release created by shogo82148/actions-create-release is alway draft here.
       # So users may not see an empty release.
