@@ -12,15 +12,15 @@ jobs:
       - name: Install Nim
         id: install-nim
         run: |
-        ./install.sh
-        export PATH="~/nimble/bin:$PATH"
-        echo $PATH
+          curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+          export PATH="~/nimble/bin:$PATH"
+          echo $PATH
 
       - name: Compile Takajo
         id: compile-takajo
         run: |
-        nimble update
-        nimble build -d:release --threads:on
+          nimble update
+          nimble build -d:release --threads:on
 
       # A release created by shogo82148/actions-create-release is alway draft here.
       # So users may not see an empty release.
