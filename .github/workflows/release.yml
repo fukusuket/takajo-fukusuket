@@ -44,6 +44,13 @@ jobs:
             'macos-latest') zip -j artifacts/takajo-${{ github.event.inputs.release_ver }}-mac.zip artifacts/* ;;
           esac
           
+      - name: Create PDF
+        uses: baileyjm02/markdown-to-pdf@v1
+        with:
+          input_path: ./
+          output_dir: artifacts
+          build_html: false
+          
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
