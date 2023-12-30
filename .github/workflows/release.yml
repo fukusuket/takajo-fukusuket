@@ -5,6 +5,7 @@ on:
     inputs:
       release_ver:
         required: true
+        default: "2.x.x"
 
 jobs:
   release:
