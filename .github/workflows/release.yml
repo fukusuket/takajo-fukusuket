@@ -4,13 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'v2.x.x'
         required: true
       release_name:
-        description: 'Release xxx'
         required: true
       release_ver:
-        description: '2.x.x'
         required: true
 
 jobs:
