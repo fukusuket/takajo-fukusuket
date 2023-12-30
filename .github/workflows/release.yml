@@ -3,10 +3,6 @@ name: Takajo Release Automation
 on:
   workflow_dispatch:
     inputs:
-      release_tag:
-        required: true
-      release_name:
-        required: true
       release_ver:
         required: true
 
@@ -37,8 +33,8 @@ jobs:
           cp takajo artifacts/
           cp mitre-attack.json artifacts/
           case ${{ matrix.os }} in
-            'ubuntu-latest') zip -j artifacts/takajo-${{ github.event.inputs.version_number }}-linux.zip artifacts/* ;;
-            'macos-latest') zip -j artifacts/takajo-${{ github.event.inputs.version_number }}-mac.zip artifacts/* ;;
+            'ubuntu-latest') zip -j artifacts/takajo-${{ github.event.inputs.release_ver }}-linux.zip artifacts/* ;;
+            'macos-latest') zip -j artifacts/takajo-${{ github.event.inputs.release_ver }}-mac.zip artifacts/* ;;
           esac
           
       - name: Upload Artifact
