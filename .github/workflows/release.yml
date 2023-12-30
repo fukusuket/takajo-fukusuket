@@ -53,6 +53,7 @@ jobs:
           build_html: false
       
       - name: Rename PDF
+        if: matrix.os == 'ubuntu-latest'
         run: |
           mv README.pdf README-${{ github.event.inputs.release_ver }}-English.pdf
           mv README-Japanese.pdf README-${{ github.event.inputs.release_ver }}-Japanese.pdf
