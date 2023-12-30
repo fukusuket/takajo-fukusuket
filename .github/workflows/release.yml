@@ -44,15 +44,19 @@ jobs:
             'macos-latest') zip -j artifacts/takajo-${{ github.event.inputs.release_ver }}-mac.zip artifacts/* ;;
           esac
           
-      - name: Create PDF
-        if: matrix.os == 'ubuntu-latest'
-        uses: baileyjm02/markdown-to-pdf@v1
+      - name: Set up node
+        if: matrix.os != 'ubuntu-latest'
+        uses: actions/setup-node@v3
         with:
-          build_pdf: true
-          input_path: ./
-          images_dir: ./
-          output_dir: pdfs
-          build_html: false
+          node-version: v16.17.0
+
+      - name: Create PDF
+        run: |
+          sudo apt install fonts-ipafont fonts-ipaexfont
+          npm ci
+          npm i -g md-to-pdf
+          md-to-pdf ./README.md --md-file-encoding utf-8
+          md-to-pdf ./README-Japanese.md --md-file-encoding utf-8
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -60,4 +64,4 @@ jobs:
           name: release-artifact
           path: |
             artifacts/*.zip
-            pdfs/*
+            ./*.pdf
