@@ -45,15 +45,14 @@ jobs:
           esac
           
       - name: Setup node
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'macos-latest'
         uses: actions/setup-node@v3
         with:
           node-version: v16.17.0
 
       - name: Create PDF
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'macos-latest'
         run: |
-          sudo apt install fonts-ipafont fonts-ipaexfont
           npm i -g md-to-pdf
           md-to-pdf ./*.md --md-file-encoding utf-8
           
