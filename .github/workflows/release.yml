@@ -45,6 +45,7 @@ jobs:
           esac
           
       - name: Create PDF
+        if: matrix.os == 'ubuntu-latest'
         uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_path: ./
