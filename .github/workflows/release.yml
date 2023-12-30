@@ -48,6 +48,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         uses: baileyjm02/markdown-to-pdf@v1
         with:
+          build_pdf: true
           input_path: ./
           output_dir: pdfs
           build_html: false
