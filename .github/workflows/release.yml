@@ -1,27 +1,58 @@
-name: release automation
+name: Takajo Release Automation
 
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'v2.x.x'
+        required: true
+      release_name:
+        description: 'Release xxx'
+        required: true
+      release_ver:
+        description: '2.x.x'
+        required: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  release:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - uses: jiro4989/setup-nim-action@v1
+      - name: Set up Nim
+        uses: nim-lang/setup-nim-action@v2
         with:
-          nim-version: '2.x' # default is 'stable'
-      - name: Build check
-        run: nimble build --threads:on -Y
-      # A release created by shogo82148/actions-create-release is alway draft here.
-      # So users may not see an empty release.
+          version: '2.0.x'
 
-      - name: Upload Assets
-        uses: shogo82148/actions-upload-release-asset@v1
+      - name: Build Binary
+        run: nimble build -d:release --threads:on
+
+      - name: Package and Zip
+        run: |
+          mkdir -p artifacts
+          cp takajo artifacts/
+          cp mitre-attack.json artifacts/
+          case ${{ matrix.os }} in
+            'windows-latest') zip -j artifacts/takajo-${{ github.event.inputs.version_number }}-win.zip artifacts/* ;;
+            'ubuntu-latest') zip -j artifacts/takajo-${{ github.event.inputs.version_number }}-linux.zip artifacts/* ;;
+            'macos-latest') zip -j artifacts/takajo-${{ github.event.inputs.version_number }}-mac.zip artifacts/* ;;
+          esac
+
+      - name: Create Release Draft
+        id: create_release
+        uses: actions/create-release@v1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: assets.txt
+          tag_name: ${{ github.event.inputs.release_tag }}
+          release_name: ${{ github.event.inputs.release_name }}
+          draft: true
 
-      # shogo82148/actions-create-release publishes the release in the end of the job.
-      # Users now can download `assets.txt` from the release page.
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-artifact
+          path: artifacts/*
