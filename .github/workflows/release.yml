@@ -49,11 +49,13 @@ jobs:
         uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_path: ./
-          output_dir: artifacts
+          output_dir: pdfs
           build_html: false
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: release-artifact
-          path: artifacts/*
+          path: |
+            artifacts/*
+            pdfs/*
