@@ -55,8 +55,8 @@ jobs:
       - name: Rename PDF
         if: matrix.os == 'ubuntu-latest'
         run: |
-          mv README.pdf README-${{ github.event.inputs.release_ver }}-English.pdf
-          mv README-Japanese.pdf README-${{ github.event.inputs.release_ver }}-Japanese.pdf
+          mv ./pdfs/README.pdf ./pdfs/README-${{ github.event.inputs.release_ver }}-English.pdf
+          mv ./pdfs/README-Japanese.pdf ./pdfs/README-${{ github.event.inputs.release_ver }}-Japanese.pdf
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
