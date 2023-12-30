@@ -27,7 +27,16 @@ jobs:
              nimble update
              nimble build -d:release --threads:on
 
-      - name: Package and Zip
+      - name: Package and Zip - Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir -p artifacts
+          Copy-Item -Path takajo.exe -Destination artifacts/
+          Copy-Item -Path mitre-attack.json -Destination artifacts/
+          Compress-Archive -Path artifacts/* -DestinationPath artifacts/windows-takajo-${{ github.event.inputs.version_number }}.zip -Force
+
+      - name: Package and Zip - Unix
+        if: matrix.os != 'windows-latest'
         run: |
           mkdir -p artifacts
           cp takajo artifacts/
