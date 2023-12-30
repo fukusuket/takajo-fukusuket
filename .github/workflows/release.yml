@@ -50,8 +50,7 @@ jobs:
         with:
           build_pdf: true
           input_path: ./
-          images_dir: screenshots
-          image_import: ./
+          images_dir: ./
           output_dir: pdfs
           build_html: false
           
