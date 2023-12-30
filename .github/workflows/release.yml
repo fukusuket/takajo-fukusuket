@@ -31,7 +31,7 @@ jobs:
           mkdir -p artifacts
           Copy-Item -Path takajo.exe -Destination artifacts/
           Copy-Item -Path mitre-attack.json -Destination artifacts/
-          Compress-Archive -Path artifacts/* -DestinationPath artifacts/takajo-${{ github.event.inputs.version_number }}-win.zip -Force
+          Compress-Archive -Path artifacts/* -DestinationPath artifacts/takajo-${{ github.event.inputs.release_ver }}-win.zip -Force
 
       - name: Package and Zip - Unix
         if: matrix.os != 'windows-latest'
