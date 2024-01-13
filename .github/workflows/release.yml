@@ -23,39 +23,39 @@ jobs:
 
       - name: Update nimble libraries
         run: |
-             nimble update
+          nimble update
 
       - name: Build Takajo binary
         if: matrix.os != 'macos-12'
         run: |
-             nimble build -d:release --threads:on
+          nimble build -d:release --threads:on
 
       - name: Build Takajo binary for Intel Mac
         if: matrix.os == 'macos-12'
         run: |
-             nimble build -d:release --threads:on --os:macosx --cpu:amd64 
+          nimble build -d:release --threads:on --os:macosx --cpu:amd64 
 
       - name: Package and Zip - Windows
         if: matrix.os == 'windows-latest'
         run: |
           mkdir -p artifacts
-          Copy-Item -Path takajo.exe -Destination artifacts/
-          Copy-Item -Path mitre-attack.json -Destination artifacts/
-          Copy-Item -Path pcre64.dll -Destination artifacts/
-          Compress-Archive -Path artifacts/* -DestinationPath artifacts/takajo-${{ github.event.inputs.release_ver }}-win.zip -Force
+          Copy-Item -Path takajo.exe -Destination release-binaries/
+          Copy-Item -Path mitre-attack.json -Destination release-binaries/
+          Copy-Item -Path pcre64.dll -Destination release-binaries/
+          Compress-Archive -Path release-binaries/* -DestinationPath release-binaries/takajo-${{ github.event.inputs.release_ver }}-win.zip -Force
 
       - name: Package and Zip - Unix
         if: matrix.os != 'windows-latest'
         run: |
-          mkdir -p artifacts
-          cp takajo artifacts/
-          cp mitre-attack.json artifacts/
+          mkdir -p release-binaries
+          cp takajo release-binaries/
+          cp mitre-attack.json release-binaries/
           case ${{ matrix.os }} in
-            'ubuntu-latest') zip -j artifacts/takajo-${{ github.event.inputs.release_ver }}-linux.zip artifacts/* ;;
-            'macos-latest') zip -j artifacts/takajo-${{ github.event.inputs.release_ver }}-mac-arm.zip artifacts/* ;;
-            'macos-12') zip -j artifacts/takajo-${{ github.event.inputs.release_ver }}-mac-intel.zip artifacts/* ;;
+            'ubuntu-latest') zip -j release-binaries/takajo-${{ github.event.inputs.release_ver }}-linux.zip release-binaries/* ;;
+            'macos-latest') zip -j release-binaries/takajo-${{ github.event.inputs.release_ver }}-mac-arm.zip release-binaries/* ;;
+            'macos-12') zip -j release-binaries/takajo-${{ github.event.inputs.release_ver }}-mac-intel.zip release-binaries/* ;;
           esac
-          
+
       - name: Setup node
         if: matrix.os == 'macos-latest'
         uses: actions/setup-node@v4
@@ -69,11 +69,11 @@ jobs:
           md-to-pdf ./*.md --md-file-encoding utf-8
           mv ./README.pdf ./README-${{ github.event.inputs.release_ver }}-English.pdf
           mv ./README-Japanese.pdf ./README-${{ github.event.inputs.release_ver }}-Japanese.pdf
-          
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: release-artifact
+          name: release-binaries
           path: |
-            artifacts/*.zip
+            release-binaries/*.zip
             ./*.pdf
