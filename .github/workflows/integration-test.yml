@@ -62,8 +62,8 @@ jobs:
       - name: run list-unused-rules
         run: cd takajo && ./takajo list-unused-rules -t timeline.csv -r ../hayabusa/tmp/rules
 
-      - name: run split-csv-timeline
-        run: cd takajo && ./takajo split-csv-timeline -t timeline.csv
+#      - name: run split-csv-timeline
+#        run: cd takajo && ./takajo split-csv-timeline -t timeline.csv
 
       - name: run split-json-timeline
         run: cd takajo && ./takajo split-json-timeline -t timeline.jsonl
