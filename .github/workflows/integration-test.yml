@@ -20,11 +20,9 @@ jobs:
 
       - name: build takajo
         run: |
-          pwd
-          ls -la
-          pushd takajo
+          cd takajo
           nimble build -d:release --threads:on
-          popd
+          cd ../
 
       - name: clone hayabusa
         uses: actions/checkout@v4
@@ -55,4 +53,4 @@ jobs:
           ./hayabusa-${LATEST_VER#v}-lin-x64-gnu json-timeline -d ../../hayabusa-sample-evtx -L -w -p super-verbose -o ../../takajo/timeline.jsonl
 
       - name: run extract-scriptblocks
-        run: ./takajo extract-scriptblocks -t ../hayabusa/timeline.jsonl
+        run: cd takajo && ./takajo extract-scriptblocks -t ../hayabusa/timeline.jsonl
