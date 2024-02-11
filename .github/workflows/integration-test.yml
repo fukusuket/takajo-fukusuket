@@ -21,6 +21,7 @@ jobs:
       - name: build takajo
         run: |
           cd takajo
+          nimble update
           nimble build -d:release --threads:on
           cd ../
 
