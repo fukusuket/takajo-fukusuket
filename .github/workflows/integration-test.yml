@@ -54,40 +54,40 @@ jobs:
           ./hayabusa-${LATEST_VER#v}-lin-x64-gnu json-timeline -d ../../hayabusa-sample-evtx -L -w -p super-verbose -o ../../takajo/timeline.jsonl
 
       - name: run extract-scriptblocks
-        run: cd takajo && ./takajo extract-scriptblocks -t ../hayabusa/timeline.jsonl
+        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl
 
       - name: run list-undetected-evtx
-        run: cd takajo && ./takajo list-undetected-evtx -t ../hayabusa/timeline.csv -e ../hayabusa-sample-evtx -o undetected-evtx.txt
+        run: cd takajo && ./takajo list-undetected-evtx -t timeline.csv -e ../hayabusa-sample-evtx -o undetected-evtx.txt
 
       - name: run list-unused-rules
-        run: cd takajo && ./takajo list-unused-rules -t ../hayabusa/timeline.csv -r ../hayabusa/tmp/rules
+        run: cd takajo && ./takajo list-unused-rules -t timeline.csv -r ../hayabusa/tmp/rules
 
       - name: run split-csv-timeline
-        run: cd takajo && ./takajo split-csv-timeline -t ../hayabusa/timeline.csv
+        run: cd takajo && ./takajo split-csv-timeline -t timeline.csv
 
       - name: run split-json-timeline
-        run: cd takajo && ./takajo split-json-timeline -t ../hayabusa/timeline.jsonl
+        run: cd takajo && ./takajo split-json-timeline -t timeline.jsonl
 
       - name: run stack-logons
-        run: cd takajo && ./takajo stack-logons -t ../hayabusa/timeline.jsonl
+        run: cd takajo && ./takajo stack-logons -t timeline.jsonl
 
       - name: run sysmon-process-tree
-        run: cd takajo && ./takajo sysmon-process-tree -t ../hayabusa/timeline.jsonl -p "365ABB72-3D4A-5CEB-0000-0010FA93FD00" -o process-tree.txt
+        run: cd takajo && ./takajo sysmon-process-tree -t timeline.jsonl -p "365ABB72-3D4A-5CEB-0000-0010FA93FD00" -o process-tree.txt
 
       - name: run timeline-logon
-        run: cd takajo && ./takajo timeline-logon -t ../hayabusa/timeline.jsonl -o logon-timeline.csv
+        run: cd takajo && ./takajo timeline-logon -t timeline.jsonl -o logon-timeline.csv
 
       - name: run timeline-partition-diagnostic
-        run: cd takajo && ./takajo timeline-partition-diagnostic -t ../hayabusa/timeline.jsonl -o partition-diagnostic-timeline.csv
+        run: cd takajo && ./takajo timeline-partition-diagnostic -t timeline.jsonl -o partition-diagnostic-timeline.csv
 
       - name: run timeline-suspicious-process
-        run: cd takajo && ./takajo timeline-suspicious-process -t ../hayabusa/timeline.jsonl -o suspicous-processes.csv
+        run: cd takajo && ./takajo timeline-suspicious-process -t timeline.jsonl -o suspicous-processes.csv
 
       - name: run ttp-summary
-        run: cd takajo && ./takajo ttp-summary -t ../hayabusa/timeline.jsonl -o ttp-summary.csv
+        run: cd takajo && ./takajo ttp-summary -t timeline.jsonl -o ttp-summary.csv
 
       - name: run ttp-visualize
-        run: cd takajo && ./takajo ttp-visualize -t ../hayabusa/timeline.jsonl
+        run: cd takajo && ./takajo ttp-visualize -t timeline.jsonl
 
       - name: run ttp-visualize-sigma
         run: cd takajo && ./takajo ttp-visualize-sigma -r ../hayabusa/tmp/rules
