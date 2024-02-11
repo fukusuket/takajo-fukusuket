@@ -60,7 +60,7 @@ jobs:
         run: cd takajo && ./takajo list-undetected-evtx -t timeline.csv -e ../hayabusa-sample-evtx -o undetected-evtx.txt
 
       - name: run list-unused-rules
-        run: cd takajo && ./takajo list-unused-rules -t timeline.csv -r ../hayabusa/tmp/rules
+        run: cd takajo && ./takajo list-unused-rules -t timeline.csv -r ../hayabusa/tmp/rules -o unused-rules.txt
 
 #      - name: run split-csv-timeline
 #        run: cd takajo && ./takajo split-csv-timeline -t timeline.csv
