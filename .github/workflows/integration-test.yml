@@ -20,6 +20,8 @@ jobs:
 
       - name: build takajo
         run: |
+          pwd
+          ls -la
           pushd takajo
           nimble build -d:release --threads:on
           popd
