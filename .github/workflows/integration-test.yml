@@ -1,0 +1,55 @@
+name: Integration-Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  takajo-integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup Nim
+        uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: '2.x' # default is 'stable'
+
+      - name: clone takajo
+        uses: actions/checkout@v4
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: takajo
+
+      - name: build takajo
+        run: |
+          pushd takajo
+          nimble build -d:release --threads:on
+          popd
+
+      - name: clone hayabusa
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/hayabusa
+          submodules: recursive
+          path: hayabusa
+
+      - name: clone hayabusa-sample-evtx
+        uses: actions/checkout@v4
+        with:
+          repository: Yamato-Security/hayabusa-sample-evtx
+          path: hayabusa-sample-evtx
+
+      - name: run hayabusa timeline
+        run: |
+          cd hayabusa
+          git fetch --prune --unshallow
+          LATEST_VER=`git describe --tags --abbrev=0`
+          URL="https://github.com/Yamato-Security/hayabusa/releases/download/${LATEST_VER}/hayabusa-${LATEST_VER#v}-linux.zip"
+          mkdir tmp
+          cd tmp
+          curl -OL $URL
+          unzip *.zip
+          chmod +x hayabusa-${LATEST_VER#v}-lin-x64-gnu
+          ./hayabusa-${LATEST_VER#v}-lin-x64-gnu update-rules
+          ./hayabusa-${LATEST_VER#v}-lin-x64-gnu csv-timeline -d ../../hayabusa-sample-evtx -w -p super-verbose -o ../../takajo/timeline.csv
+          ./hayabusa-${LATEST_VER#v}-lin-x64-gnu json-timeline -d ../../hayabusa-sample-evtx -L -w -p super-verbose -o ../../takajo/timeline.jsonl
+
+      - name: run extract-scriptblocks
+        run: ./takajo extract-scriptblocks -t ../hayabusa/timeline.jsonl
