@@ -1,5 +1,26 @@
 # 変更点
 
+## 2.4.0-dev [xxxx/xx/xx] - Year Of The Dragon Release
+
+**新機能:**
+
+- `ttp-visualize-sigma`コマンド: MITRE ATT&CK Navigatorにアップロードし、SigmaルールのTTPをヒートマップで可視化するために、JSONファイルに作成する。 (#92) (@fukusuket)
+
+**改善:**
+
+- `ttp-visualize`コマンド: ヒートマップにカラーグラデーションを追加した。 (#90) (@fukusuket)
+
+## 2.3.1 [2024/01/27] - Year Of The Dragon Release
+
+**改善:**
+
+- `ttp-visualize` コマンドで、MITRE ATT&CK Navigator上のテクニックをマウスオーバーしたときに、検知ルール名が表示されるようした。(#82) (@fukusuket)
+- `ttp-summary`コマンドの結果にルールのタイトルを追加した。(#83) (@fukusuket)
+
+**バグ修正:**
+
+`timeline-suspicious-process`コマンドで、Security 4688またはSysmon 1のイベント数が0であり、他の形式のイベントがある場合、CSVファイルは保存されなかった。(#86) (@YamatoSecurity)
+
 ## 2.3.0 [2023/12/23] - SECCON Christmas Release
 
 **新機能:**
