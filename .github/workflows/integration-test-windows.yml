@@ -54,7 +54,7 @@ jobs:
 
       - name: run extract-scriptblocks
         shell: pwsh
-        run: cd takajo && &"./takajo extract-scriptblocks" -t timeline.jsonl
+        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl
 
       - name: run extract-scriptblocks(-o)
         shell: pwsh
