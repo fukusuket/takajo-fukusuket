@@ -1,11 +1,10 @@
-type
-    Script = object
-        firstTimestamp: string
-        computerName: string
-        scriptBlockId: string
-        scriptBlocks: OrderedSet[string]
-        levels: HashSet[string]
-        ruleTitles: HashSet[string]
+type Script = ref object
+    firstTimestamp: string
+    computerName: string
+    scriptBlockId: string
+    scriptBlocks: OrderedSet[string]
+    levels: HashSet[string]
+    ruleTitles: HashSet[string]
 
 proc outputScriptText(output: string, timestamp: string, computerName: string,
         scriptObj: Script) =
@@ -48,20 +47,7 @@ proc buildSummaryRecord(path: string, messageTotal: int,
 proc extractScriptblocks(level: string = "low", output: string = "scriptblock-logs",
         quiet: bool = false, timeline: string) =
     let startTime = epochTime()
-    if not quiet:
-        styledEcho(fgGreen, outputLogo())
-
-    if not os.fileExists(timeline):
-        echo "The file '" & timeline & "' does not exist. Please specify a valid file path."
-        quit(1)
-
-    if not isJsonConvertible(timeline):
-        quit(1)
-
-    if level != "critical" and level != "high" and level != "medium" and level != "low" and level != "informational":
-        echo "You must specify a minimum level of critical, high, medium, low or informational. (default: low)"
-        echo ""
-        return
+    checkArgs(quiet, timeline, level)
 
     echo "Started the Extract ScriptBlock command."
     echo "This command will extract PowerShell Script Block."
@@ -164,16 +150,8 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
             else:
                 outputFile.write(escapeCsvField(val) & "\p")
         for v in summaryRecords.values:
-            if v[5] == "crit":
-                table.add red v[0], red v[1], red v[2], red v[3], red v[4], red v[5], red v[6]
-            elif v[5] == "high":
-                table.add yellow v[0], yellow v[1], yellow v[2], yellow v[3], yellow v[4], yellow v[5], yellow v[6]
-            elif v[5] == "med":
-                table.add cyan v[0], cyan v[1], cyan v[2], cyan v[3], cyan v[4], cyan v[5], cyan v[6]
-            elif v[5] == "low":
-                table.add green v[0], green v[1], green v[2], green v[3], green v[4], green v[5], green v[6]
-            else:
-                table.add v
+            let color = levelColor(v[5])
+            table.add color v[0], color v[1], color v[2], color v[3], color v[4], color v[5], color v[6]
             for i, cell in v:
                 if i < 6:
                     outputFile.write(escapeCsvField(cell) & ",")
@@ -185,12 +163,4 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
         echo ""
         echo "The extracted PowerShell ScriptBlock is saved in the directory: " & output
         echo "Saved summary file: " & summaryFile & " (" & formatFileSize(outputFileSize) & ")"
-
-    let endTime = epochTime()
-    let elapsedTime = int(endTime - startTime)
-    let hours = elapsedTime div 3600
-    let minutes = (elapsedTime mod 3600) div 60
-    let seconds = elapsedTime mod 60
-    echo ""
-    echo "Elapsed time: ", $hours & " hours, " & $minutes & " minutes, " & $seconds & " seconds"
-    echo ""
+    outputElapsedTime(startTime)
