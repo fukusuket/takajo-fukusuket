@@ -53,7 +53,7 @@ jobs:
             & ".\hayabusa-$($LATEST_VER -replace 'v')-win-x64.exe" json-timeline -d ..\..\hayabusa-sample-evtx -L -w -p super-verbose -o ..\..\takajo\timeline.jsonl
 
       - name: run extract-scriptblocks
-        run: takajo/takajo extract-scriptblocks -t ../timeline.jsonl
+        run: takajo/takajo extract-scriptblocks -t takajo/timeline.jsonl
 
       - name: run extract-scriptblocks(-o)
         shell: pwsh
