@@ -5,7 +5,7 @@ on:
 
 jobs:
   takajo-integration-test:
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - name: setup Nim
         uses: jiro4989/setup-nim-action@v1
@@ -53,7 +53,9 @@ jobs:
             & ".\hayabusa-$($LATEST_VER -replace 'v')-win-x64.exe" json-timeline -d ..\..\hayabusa-sample-evtx -L -w -p super-verbose -o ..\..\takajo\timeline.jsonl
 
       - name: run extract-scriptblocks
-        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o D:\a\takajo-fukusuket\takajo-fukusuket\takajo\scriptblocks
+        run: |
+            Write-Host $PWD
+            cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks
 
       - name: run extract-scriptblocks(-o)
         run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks
