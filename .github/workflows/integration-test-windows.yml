@@ -5,7 +5,7 @@ on:
 
 jobs:
   takajo-integration-test:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - name: setup Nim
         uses: jiro4989/setup-nim-action@v1
@@ -56,95 +56,72 @@ jobs:
         run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o D:\a\takajo-fukusuket\takajo-fukusuket\takajo\scriptblocks
 
       - name: run extract-scriptblocks(-o)
-        shell: pwsh
         run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks
 
       - name: run extract-scriptblocks(-l)
-        shell: pwsh
         run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks -l informational
 
       - name: run list-domain(-o)
-        shell: pwsh
         run: cd takajo && ./takajo list-domains -t timeline.jsonl -o domains.txt
 
       - name: run list-domain(-s)
-        shell: pwsh
         run: cd takajo && ./takajo list-domains -t timeline.jsonl -o domains.txt -s
 
       - name: run list-hashes(-o)
-        shell: pwsh
         run: cd takajo && ./takajo list-hashes -t timeline.jsonl -o case-1
 
       - name: run list-ip-addresses(-o)
-        shell: pwsh
         run: cd takajo && ./takajo list-ip-addresses -t timeline.jsonl -o ipAddresses.txt
 
       - name: run list-ip-addresses(-i)
-        shell: pwsh
         run: cd takajo && ./takajo list-ip-addresses -t timeline.jsonl -o ipAddresses.txt -i=false
 
       - name: run list-undetected-evtx
-        shell: pwsh
         run: cd takajo && ./takajo list-undetected-evtx -t timeline.csv -e ../hayabusa-sample-evtx
 
       - name: run list-undetected-evtx(-o)
-        shell: pwsh
         run: cd takajo && ./takajo list-undetected-evtx -t timeline.csv -e ../hayabusa-sample-evtx -o undetected-evtx.txt
 
       - name: run list-unused-rules
-        shell: pwsh
         run: cd takajo && ./takajo list-unused-rules -t timeline.csv -r ../hayabusa/tmp/rules
 
       - name: run list-unused-rules(-o)
-        shell: pwsh
         run: cd takajo && ./takajo list-unused-rules -t timeline.csv -r ../hayabusa/tmp/rules -o unused-rules.txt
 
       - name: run split-csv-timeline
-        shell: pwsh
         run: cd takajo && ./takajo split-csv-timeline -t timeline.csv
 
       - name: run split-json-timeline
-        shell: pwsh
         run: cd takajo && ./takajo split-json-timeline -t timeline.jsonl
 
       - name: run stack-cmdlines
-        shell: pwsh
         run: cd takajo && ./takajo stack-cmdlines -t timeline.jsonl
 
       - name: run stack-cmdlines(-o)
-        shell: pwsh
         run: cd takajo && ./takajo stack-cmdlines -t timeline.jsonl -o cmdlines.csv
 
       - name: run stack-cmdlines(-l)
-        shell: pwsh
         run: cd takajo && ./takajo stack-cmdlines -t timeline.jsonl -o cmdlines.csv -l informational
 
       - name: run stack-dns
-        shell: pwsh
         run: cd takajo && ./takajo stack-dns -t timeline.jsonl
 
       - name: run stack-dns(-o)
-        shell: pwsh
         run: cd takajo && ./takajo stack-dns -t timeline.jsonl -o dns.csv
 
       - name: run stack-logons
-        shell: pwsh
         run: cd takajo && ./takajo stack-logons -t timeline.jsonl
 
       - name: run stack-logons(-l)
-        shell: pwsh
         run: cd takajo && ./takajo stack-logons -t timeline.jsonl -l
 
       - name: run stack-logons(-o)
-        shell: pwsh
         run: cd takajo && ./takajo stack-logons -t timeline.jsonl -o logon.csv
 
       - name: run stack-processes
-        shell: pwsh
         run: cd takajo && ./takajo stack-processes -t timeline.jsonl
 
       - name: run stack-processes(-o)
-        shell: pwsh
         run: cd takajo && ./takajo stack-processes -t timeline.jsonl -o processes.csv
 
       - name: run stack-processes(-l)
@@ -152,49 +129,37 @@ jobs:
         run: cd takajo && ./takajo stack-processes -t timeline.jsonl -o processes.csv -l informational
 
       - name: run stack-services
-        shell: pwsh
         run: cd takajo && ./takajo stack-services -t timeline.jsonl
 
       - name: run stack-services(-o)
-        shell: pwsh
         run: cd takajo && ./takajo stack-services -t timeline.jsonl -o services.csv
 
       - name: run stack-tasks
-        shell: pwsh
         run: cd takajo && ./takajo stack-tasks -t timeline.jsonl
 
       - name: run stack-tasks(-o)
-        shell: pwsh
         run: cd takajo && ./takajo stack-tasks -t timeline.jsonl -o tasks.csv
 
       - name: run sysmon-process-tree
-        shell: pwsh
         run: cd takajo && ./takajo sysmon-process-tree -t timeline.jsonl -p "365ABB72-3D4A-5CEB-0000-0010FA93FD00" -o process-tree.txt
 
       - name: run timeline-logon
-        shell: pwsh
         run: cd takajo && ./takajo timeline-logon -t timeline.jsonl -o logon-timeline.csv
 
       - name: run timeline-partition-diagnostic
-        shell: pwsh
         run: cd takajo && ./takajo timeline-partition-diagnostic -t timeline.jsonl -o partition-diagnostic-timeline.csv
 
       - name: run timeline-suspicious-process
-        shell: pwsh
         run: cd takajo && ./takajo timeline-suspicious-process -t timeline.jsonl -o suspicous-processes.csv
 
       - name: run timeline-tasks
-        shell: pwsh
         run: cd takajo && ./takajo timeline-tasks -t timeline.jsonl -o task-timeline.csv
 
       - name: run ttp-summary
-        shell: pwsh
         run: cd takajo && ./takajo ttp-summary -t timeline.jsonl -o ttp-summary.csv
 
       - name: run ttp-visualize
-        shell: pwsh
         run: cd takajo && ./takajo ttp-visualize -t timeline.jsonl
 
       - name: run ttp-visualize-sigma
-        shell: pwsh
         run: cd takajo && ./takajo ttp-visualize-sigma -r ../hayabusa/tmp/rules
