@@ -5,7 +5,7 @@ on:
 
 jobs:
   takajo-integration-test:
-    runs-on: widows-latest
+    runs-on: windows-latest
     steps:
       - name: setup Nim
         uses: jiro4989/setup-nim-action@v1
