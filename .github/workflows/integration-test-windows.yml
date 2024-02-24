@@ -48,9 +48,9 @@ jobs:
             cd .\tmp
             Invoke-WebRequest -Uri $URL -OutFile "hayabusa-$($LATEST_VER -replace 'v')-win-x64.zip"
             Expand-Archive -Path .\*.zip -DestinationPath .
-            .\hayabusa-$($LATEST_VER -replace 'v')-win-x64 update-rules
-            .\hayabusa-$($LATEST_VER -replace 'v')-win-x64 -d ..\..\hayabusa-sample-evtx -w -p super-verbose -o ..\..\takajo\timeline.csv
-            .\hayabusa-$($LATEST_VER -replace 'v')-win-x64 json-timeline -d ..\..\hayabusa-sample-evtx -L -w -p super-verbose -o ..\..\takajo\timeline.jsonl
+            & ".\hayabusa-$($LATEST_VER -replace 'v')-win-x64.exe" update-rules
+            & ".\hayabusa-$($LATEST_VER -replace 'v')-win-x64.exe" -d ..\..\hayabusa-sample-evtx -w -p super-verbose -o ..\..\takajo\timeline.csv
+            & ".\hayabusa-$($LATEST_VER -replace 'v')-win-x64.exe" json-timeline -d ..\..\hayabusa-sample-evtx -L -w -p super-verbose -o ..\..\takajo\timeline.jsonl
 
       - name: run extract-scriptblocks
         shell: pwsh
