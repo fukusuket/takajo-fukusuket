@@ -127,7 +127,7 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
                     levels:toHashSet([eventLevel]), ruleTitles:toHashSet([ruleTitle]))
 
         let scriptObj = stackedRecords[scriptBlockId]
-        cho "fugauga"
+        echo "fugauga"
         if messageNumber == messageTotal:
             if scriptBlockId in summaryRecords:
                 summaryRecords[scriptBlockId] = buildSummaryRecord(path, messageTotal, scriptObj)
