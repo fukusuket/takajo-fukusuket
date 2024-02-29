@@ -1,3 +1,5 @@
+import system/nimscript
+
 type Script = ref object
     firstTimestamp: string
     computerName: string
@@ -66,7 +68,7 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
 
     if not dirExists(output):
         echo "The directory '" & output & "' does not exist so will be created."
-        createDir(expandFilename(output))
+        mkDir(output)
         echo ""
         echo "hogehoge"
 
