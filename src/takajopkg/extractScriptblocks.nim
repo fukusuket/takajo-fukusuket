@@ -13,6 +13,7 @@ proc outputScriptText(output: string, timestamp: string, computerName: string,
         scriptText = scriptText & text.replace("\\r\\n", "\p").replace("\\n", "\p").replace("\\t", "\t").replace("\\\"", "\"")
     let date = timestamp.replace(":", "_").replace(" ", "_")
     let fileName = expandFilename(output) & "/" & computerName & "-" & date & "-" & scriptObj.scriptBlockId & ".txt"
+    echo "dkajf;ldkjaf;"
     var outputFile = open(filename, fmWrite)
     outputFile.write(scriptText)
     flushFile(outputFile)
@@ -68,6 +69,7 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
         echo expandFilename(output)
         createDir(output)
         echo ""
+        echo "hogehoge"
 
     var
         bar: SuruBar = initSuruBar()
@@ -125,14 +127,17 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
                     levels:toHashSet([eventLevel]), ruleTitles:toHashSet([ruleTitle]))
 
         let scriptObj = stackedRecords[scriptBlockId]
+        cho "fugauga"
         if messageNumber == messageTotal:
             if scriptBlockId in summaryRecords:
                 summaryRecords[scriptBlockId] = buildSummaryRecord(path, messageTotal, scriptObj)
                 # Already outputted
                 continue
+            cho "qwerty"
             outputScriptText(output, timestamp, computerName, scriptObj)
             summaryRecords[scriptBlockId] = buildSummaryRecord(path, messageTotal, scriptObj)
         elif currentIndex + 1 == totalLines:
+            cho "zaqwsx"
             outputScriptText(output, timestamp, computerName, scriptObj)
             summaryRecords[scriptBlockId] = buildSummaryRecord(path, messageTotal, scriptObj)
 
