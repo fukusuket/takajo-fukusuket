@@ -68,7 +68,7 @@ jobs:
 #        run: cd takajo && ./takajo list-domains -t timeline.jsonl -o domains.txt -s
 
       - name: run list-hashes(-o)
-        run: cd takajo && ./takajo list-hashes -t timeline.jsonl -o case-1
+        run: cd takajo && ./takajo list-hashes -t timeline.jsonl -o C:\case-1
 
       - name: run list-ip-addresses(-o)
         run: cd takajo && ./takajo list-ip-addresses -t timeline.jsonl -o ipAddresses.txt
