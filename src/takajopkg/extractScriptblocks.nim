@@ -1,5 +1,3 @@
-import system/nimscript
-
 type Script = ref object
     firstTimestamp: string
     computerName: string
