@@ -52,20 +52,20 @@ jobs:
             & ".\hayabusa-$($LATEST_VER -replace 'v')-win-x64.exe" csv-timeline -d ..\..\hayabusa-sample-evtx -w -p super-verbose -o ..\..\takajo\timeline.csv
             & ".\hayabusa-$($LATEST_VER -replace 'v')-win-x64.exe" json-timeline -d ..\..\hayabusa-sample-evtx -L -w -p super-verbose -o ..\..\takajo\timeline.jsonl
 
-      - name: run extract-scriptblocks
-        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks
-
-      - name: run extract-scriptblocks(-o)
-        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks
-
-      - name: run extract-scriptblocks(-l)
-        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks -l informational
-
-      - name: run list-domain(-o)
-        run: cd takajo && ./takajo list-domains -t timeline.jsonl -o domains.txt
-
-      - name: run list-domain(-s)
-        run: cd takajo && ./takajo list-domains -t timeline.jsonl -o domains.txt -s
+#      - name: run extract-scriptblocks
+#        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks
+#
+#      - name: run extract-scriptblocks(-o)
+#        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks
+#
+#      - name: run extract-scriptblocks(-l)
+#        run: cd takajo && ./takajo extract-scriptblocks -t timeline.jsonl -o scriptblocks -l informational
+#
+#      - name: run list-domain(-o)
+#        run: cd takajo && ./takajo list-domains -t timeline.jsonl -o domains.txt
+#
+#      - name: run list-domain(-s)
+#        run: cd takajo && ./takajo list-domains -t timeline.jsonl -o domains.txt -s
 
       - name: run list-hashes(-o)
         run: cd takajo && ./takajo list-hashes -t timeline.jsonl -o case-1

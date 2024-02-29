@@ -66,7 +66,7 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
 
     if not dirExists(output):
         echo "The directory '" & output & "' does not exist so will be created."
-        mkDir(output)
+        createDir(output)
         echo ""
         echo "hogehoge"
 
