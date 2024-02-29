@@ -133,11 +133,11 @@ proc extractScriptblocks(level: string = "low", output: string = "scriptblock-lo
                 summaryRecords[scriptBlockId] = buildSummaryRecord(path, messageTotal, scriptObj)
                 # Already outputted
                 continue
-            cho "qwerty"
+            echo "qwerty"
             outputScriptText(output, timestamp, computerName, scriptObj)
             summaryRecords[scriptBlockId] = buildSummaryRecord(path, messageTotal, scriptObj)
         elif currentIndex + 1 == totalLines:
-            cho "zaqwsx"
+            echo "zaqwsx"
             outputScriptText(output, timestamp, computerName, scriptObj)
             summaryRecords[scriptBlockId] = buildSummaryRecord(path, messageTotal, scriptObj)
 
